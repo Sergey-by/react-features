@@ -1,19 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { CardList } from './components/card-list/card-list.component'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        first commit should be with this text
-      </header>
-    </div>
-  );
-}
+export default class App extends Component {
+  constructor() {
+    super();
 
-export default App;
+    this.state = {
+      people: []
+    }
+  }
+
+  componentDidMount() {
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(resp => resp.json())
+        .then(rez => this.setState({people: rez}))
+  }
+
+  render () {
+    return (
+        // <ul>{ this.state.people.map( (item, key) => <li key={ key }>{ item.name }</li>)}</ul>
+
+
+        // <div className="App">
+        //   <CardList><CardList/>
+        // </div>
+
+        <div className="App">
+          <CardList></CardList>
+        </div>
+    )
+  }
+}
